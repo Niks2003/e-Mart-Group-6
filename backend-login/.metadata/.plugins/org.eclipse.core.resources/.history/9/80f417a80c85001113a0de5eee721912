@@ -1,0 +1,5 @@
+package com.emart.security;
+
+public class CustomUserDetails {
+
+}

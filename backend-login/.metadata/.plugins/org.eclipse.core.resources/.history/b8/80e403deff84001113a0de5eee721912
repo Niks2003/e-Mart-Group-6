@@ -1,0 +1,5 @@
+package com.emart.dto;
+
+public class UserRequestDTO {
+
+}

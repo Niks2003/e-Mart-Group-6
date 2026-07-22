@@ -1,0 +1,50 @@
+package com.emart.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.emart.dto.LoginRequestDTO;
+import com.emart.dto.LoginResponseDTO;
+import com.emart.dto.UserRequestDTO;
+import com.emart.dto.UserResponseDTO;
+import com.emart.service.AuthService;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:5173")
+public class AuthController {
+
+    @Autowired
+    private AuthService authService;
+
+    /**
+     * Register a new customer
+     * POST: /api/auth/register
+     */
+    @PostMapping("/register")
+    public ResponseEntity<UserResponseDTO> register(
+            @Valid @RequestBody UserRequestDTO request) {
+
+        UserResponseDTO response = authService.register(request);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    /**
+     * Login user
+     * POST: /api/auth/login
+     */
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(
+            @Valid @RequestBody LoginRequestDTO request) {
+
+        LoginResponseDTO response = authService.login(request);
+
+        return ResponseEntity.ok(response);
+    }
+
+}

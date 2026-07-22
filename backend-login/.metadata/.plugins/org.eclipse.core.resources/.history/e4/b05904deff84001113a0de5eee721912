@@ -1,0 +1,5 @@
+package com.emart.serviceimpl;
+
+public class UserServiceImpl {
+
+}
