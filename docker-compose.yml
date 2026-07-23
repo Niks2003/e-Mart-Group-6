@@ -1,0 +1,71 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: emart-db
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: yes@2021
+      MYSQL_DATABASE: emart
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pyes@2021"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+    networks:
+      - emart-network
+
+  backend:
+    build:
+      context: ./backend-login/emart
+    container_name: emart-backend
+    restart: always
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/emart
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: yes@2021
+
+    ports:
+      - "8080:8080"
+
+    networks:
+      - emart-network
+
+  frontend:
+    build:
+      context: ./frontend-login
+    container_name: emart-frontend
+
+    depends_on:
+      - backend
+
+    ports:
+      - "5173:5173"
+
+    stdin_open: true
+    tty: true
+
+    networks:
+      - emart-network
+
+volumes:
+  mysql-data:
+
+networks:
+  emart-network:
+    driver: bridge
