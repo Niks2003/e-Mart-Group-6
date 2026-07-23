@@ -1,0 +1,37 @@
+# Eclipse / STS
+.metadata/
+**/.metadata/
+
+.settings/
+**/.settings/
+
+.project
+.classpath
+
+# Java
+target/
+
+# Node
+node_modules/
+
+# macOS
+.DS_Store
+
+# Environment
+.env# Eclipse / STS
+.metadata/
+.settings/
+.project
+.classpath
+
+# Java
+target/
+
+# Node
+node_modules/
+
+# Environment
+.env
+
+# macOS
+.DS_Store

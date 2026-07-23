@@ -1,5 +1,0 @@
-package com.emart.security;
-
-public class JwtAuthenticationFilter {
-
-}
